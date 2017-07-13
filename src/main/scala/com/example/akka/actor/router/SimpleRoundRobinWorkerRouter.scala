@@ -10,6 +10,10 @@ object SimpleRoundRobinWorkerRouter {
   val props = Props[SimpleRoundRobinWorkerRouter]
 }
 
+/**
+  * Round robin router that creates 5 routees; which are Worker actors in our case.
+  * Messages sent to the router are forwarded to its routees in a round robin fashion.
+  */
 class SimpleRoundRobinWorkerRouter extends Actor {
 
   val logger = LoggerFactory getLogger SimpleRoundRobinWorkerRouter.getClass
@@ -21,9 +25,10 @@ class SimpleRoundRobinWorkerRouter extends Actor {
   }
 
   val router: Router = {
-    logger debug "Creating a router with round robin routing logic ..."
+    logger debug "Creating a list of 5 Worker nodes to serve as routees ..."
     val routees = Vector.tabulate(5)(index => s"Worker$index")
       .map(workerName => generateActorRefRoutee(workerName))
+    logger debug "Creating a router with round robin routing logic ..."
     Router(RoundRobinRoutingLogic(), routees)
   }
 
@@ -33,3 +38,4 @@ class SimpleRoundRobinWorkerRouter extends Actor {
     case Terminated(workerRoutee) => logger info s"Routee $workerRoutee was terminated!"
   }
 }
+

@@ -107,3 +107,4 @@ com_crashlytics_export_strings.xml
 crashlytics.properties
 crashlytics-build.properties
 fabric.properties
+!/src/main/scala/com/example/akka/actor/Worker.scala

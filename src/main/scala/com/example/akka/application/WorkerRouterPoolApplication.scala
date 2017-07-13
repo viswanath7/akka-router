@@ -21,7 +21,7 @@ object WorkerRouterPoolApplication extends App {
     workerRouter ! Work(s"Message: $count")
   }
 
-  Thread sleep 100
+  Thread sleep 200
 
   logger debug "Terminating actor system"
   actorSystem terminate

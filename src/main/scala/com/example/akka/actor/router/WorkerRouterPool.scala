@@ -24,7 +24,9 @@ class WorkerRouterPool extends Actor {
 
   override def preStart(): Unit = {
     super.preStart()
+    logger debug "Creating a list of self-managed routees ..."
     routees = List.fill(5)(context.actorOf(Worker.props))
+    logger debug "5 worker actor instances have been created so that messages messages may be routed to them"
   }
 
   override def receive: Receive = {

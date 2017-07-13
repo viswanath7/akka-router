@@ -6,9 +6,12 @@ import org.slf4j.LoggerFactory
 
 import scala.util.Random
 
-
+/**
+  * Routees are created externally to the router and
+  * the router sends messages to its routees using actor selection.
+  **/
 class WorkerRouterGroup(routeesPath: List[String]) extends Actor {
-  val logger = LoggerFactory getLogger WorkerRouterGroup.getClass
+  val logger = LoggerFactory getLogger "WorkerRouterGroup"
 
   override def receive: Receive = {
     case message: Work => logger debug s"Router '$self' forwarding a 'Work' message to one of its routees ..."
@@ -16,5 +19,3 @@ class WorkerRouterGroup(routeesPath: List[String]) extends Actor {
     case _ => logger warn s"Router '$self': Unsupported message type!"
   }
 }
-
-object WorkerRouterGroup
